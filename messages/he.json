@@ -58,5 +58,23 @@
   },
   "footer": {
     "createdBy": "נוצר על ידי"
+  },
+  "PDFUploader": {
+    "title": "העלה PDF",
+    "dragDrop": "גרור ושחרר את ה-PDF כאן או לחץ לבחירה",
+    "browse": "בחר קבצים",
+    "processing": "מעבד PDF..."
+  },
+  "BookControls": {
+    "navigation": "ניווט",
+    "first": "עמוד ראשון",
+    "previous": "הקודם",
+    "next": "הבא",
+    "last": "עמוד אחרון",
+    "jumpToPage": "קפוץ לעמוד...",
+    "go": "עבור"
+  },
+  "LanguageSelector": {
+    "selectLanguage": "בחר שפה"
   }
 }

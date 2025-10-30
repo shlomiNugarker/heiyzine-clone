@@ -58,5 +58,23 @@
   },
   "footer": {
     "createdBy": "Created by"
+  },
+  "PDFUploader": {
+    "title": "Upload PDF",
+    "dragDrop": "Drag and drop your PDF here or click to browse",
+    "browse": "Browse Files",
+    "processing": "Processing PDF..."
+  },
+  "BookControls": {
+    "navigation": "Navigation",
+    "first": "First Page",
+    "previous": "Previous",
+    "next": "Next",
+    "last": "Last Page",
+    "jumpToPage": "Jump to page...",
+    "go": "Go"
+  },
+  "LanguageSelector": {
+    "selectLanguage": "Select Language"
   }
 }

@@ -55,5 +55,23 @@
   },
   "footer": {
     "createdBy": "作成者"
+  },
+  "PDFUploader": {
+    "title": "PDFアップロード",
+    "dragDrop": "PDFをここにドラッグ&ドロップまたはクリックして選択",
+    "browse": "ファイルを選択",
+    "processing": "PDF処理中..."
+  },
+  "BookControls": {
+    "navigation": "ナビゲーション",
+    "first": "最初のページ",
+    "previous": "前へ",
+    "next": "次へ",
+    "last": "最後のページ",
+    "jumpToPage": "ページへジャンプ...",
+    "go": "移動"
+  },
+  "LanguageSelector": {
+    "selectLanguage": "言語を選択"
   }
 }

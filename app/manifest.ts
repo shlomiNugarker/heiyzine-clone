@@ -1,69 +1,16 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'FlipBook Viewer - Interactive PDF to Flipbook Converter',
-    short_name: 'FlipBook Viewer',
-    description: 'Transform your PDFs into beautiful interactive digital flipbooks with realistic page-turning effects',
+    name: 'FlipBook Viewer - Interactive PDF Reader',
+    short_name: 'FlipBook',
+    description: 'Transform your PDFs into beautiful interactive flipbooks',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
     theme_color: '#3b82f6',
-    orientation: 'any',
-    scope: '/',
-    icons: [
-      {
-        src: '/icon-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'maskable'
-      },
-      {
-        src: '/icon-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any'
-      },
-      {
-        src: '/icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable'
-      },
-      {
-        src: '/icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'any'
-      }
-    ],
-    categories: ['productivity', 'utilities', 'education'],
-    screenshots: [
-      {
-        src: '/screenshot-wide.jpg',
-        sizes: '1280x720',
-        type: 'image/jpeg',
-        form_factor: 'wide'
-      },
-      {
-        src: '/screenshot-narrow.jpg',
-        sizes: '750x1334',
-        type: 'image/jpeg',
-        form_factor: 'narrow'
-      }
-    ],
-    shortcuts: [
-      {
-        name: 'Upload PDF',
-        short_name: 'Upload',
-        description: 'Upload a new PDF to convert',
-        url: '/?action=upload',
-        icons: [{ src: '/icon-192x192.png', sizes: '192x192' }]
-      }
-    ],
-    related_applications: [],
-    prefer_related_applications: false,
-    lang: 'en-US',
-    dir: 'ltr'
-  }
+    // Note: Add icon files to public/ folder (icon-192.png, icon-512.png)
+    // or comment out the icons array if not using PWA features
+    icons: [],
+  };
 }

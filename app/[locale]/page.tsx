@@ -1,139 +1,55 @@
 'use client';
 
-import { useState, useRef } from "react";
-import { useTranslations } from 'next-intl';
-import ReactPageFlipBook, { FlipBookRef } from "../components/ReactPageFlipBook";
-import Sidebar from "../components/Sidebar";
+import { useState, useCallback } from 'react';
+import { FlipBook } from '../components/FlipBook';
+import { PDFUpload } from '../components/PDFUpload';
+import { Controls } from '../components/Controls';
+import { Sidebar } from '../components/Sidebar';
+import { LanguageSwitch } from '../components/LanguageSwitch';
+import { DEFAULT_PAGES } from '../lib/config';
+import type { FlipBookStateCallback, PageData } from '../types';
 
-export default function Home() {
-  const t = useTranslations('home.defaultPages');
+export default function HomePage() {
+  const [pages, setPages] = useState<PageData[]>(DEFAULT_PAGES);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [flipBookState, setFlipBookState] = useState<FlipBookStateCallback>({
+    currentPage: 0,
+    totalPages: 0,
+    nextPage: () => {},
+    prevPage: () => {},
+    firstPage: () => {},
+    lastPage: () => {},
+    goToPage: () => {},
+  });
 
-  // דוגמת דפים - תוכל להחליף עם תוכן משלך
-  const defaultPages = [
-    {
-      content: t('cover'), // כריכה
-    },
-    {
-      content: t('welcome'),
-    },
-    {
-      content: t('content1'),
-    },
-    {
-      content: t('content2'),
-    },
-    {
-      content: t('content3'),
-    },
-    {
-      content: t('content4'),
-    },
-    {
-      content: t('content5'),
-    },
-    {
-      content: t('content6'),
-    },
-    {
-      content: t('content7'),
-    },
-    {
-      content: t('end'), // כריכה אחורית
-    },
-  ];
+  const handleUpload = useCallback((newPages: PageData[]) => {
+    setPages(newPages);
+  }, []);
 
-  const [pages, setPages] = useState<Array<{ content?: string; image?: string }>>(defaultPages);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const bookRef = useRef<FlipBookRef>(null);
-
-  const handlePDFLoad = (pdfPages: Array<{ content: string; image?: string }>) => {
-    setPages(pdfPages);
-  };
-
-  const handleNextPage = () => {
-    bookRef.current?.nextPage();
-  };
-
-  const handlePrevPage = () => {
-    bookRef.current?.prevPage();
-  };
-
-  const handleFirstPage = () => {
-    bookRef.current?.flipToPage(0);
-  };
-
-  const handleLastPage = () => {
-    const totalPages = bookRef.current?.getTotalPages() || 0;
-    bookRef.current?.flipToPage(totalPages - 1);
-  };
-
-  const handleJumpToPage = (page: number) => {
-    bookRef.current?.flipToPage(page);
-  };
+  const handleStateChange = useCallback((state: FlipBookStateCallback) => {
+    setFlipBookState(state);
+  }, []);
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: '100vw',
-        height: '100vh',
-        margin: 0,
-        padding: 0,
-        overflow: 'hidden',
-      }}
-    >
-      {/* Main Content Area - Full width, centered */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          // Account for sidebar width to keep book centered
-          marginRight: isSidebarOpen ? '320px' : '56px',
-          transition: 'margin-right 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
-      >
-        <ReactPageFlipBook
-          ref={bookRef}
-          pages={pages}
-          onPageChange={setCurrentPage}
-        />
-      </div>
+    <div className="main-container">
+      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)}>
+        <PDFUpload onUpload={handleUpload} />
 
-      {/* Sidebar - Fixed position */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 1000,
-        }}
-      >
-        <Sidebar
-          currentPage={currentPage}
-          totalPages={pages.length}
-          onPrevPage={handlePrevPage}
-          onNextPage={handleNextPage}
-          onFirstPage={handleFirstPage}
-          onLastPage={handleLastPage}
-          onJumpToPage={handleJumpToPage}
-          onPDFLoad={handlePDFLoad}
-          isOpen={isSidebarOpen}
-          onToggle={setIsSidebarOpen}
+        <Controls
+          currentPage={flipBookState.currentPage}
+          totalPages={flipBookState.totalPages}
+          onNext={flipBookState.nextPage}
+          onPrev={flipBookState.prevPage}
+          onFirst={flipBookState.firstPage}
+          onLast={flipBookState.lastPage}
+          onGoToPage={flipBookState.goToPage}
+          disabled={pages.length === 0}
         />
-      </div>
+
+        <LanguageSwitch />
+      </Sidebar>
+
+      <FlipBook pages={pages} onStateChange={handleStateChange} />
     </div>
   );
 }

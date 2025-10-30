@@ -1,30 +1,23 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { SUPPORTED_LOCALES } from './lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flipbook-viewer.com'
+  const baseUrl = 'https://flipbook-viewer.vercel.app';
 
-  // Define supported locales
-  const locales = ['en', 'he', 'es', 'fr', 'de', 'ja', 'zh']
+  const routes = SUPPORTED_LOCALES.map((locale) => ({
+    url: `${baseUrl}/${locale}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: locale === 'en' ? 1 : 0.8,
+  }));
 
-  // Base routes
-  const routes = [
+  return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
+      changeFrequency: 'monthly',
+      priority: 1,
     },
-  ]
-
-  // Add localized routes
-  const localizedRoutes = locales.flatMap((locale) => [
-    {
-      url: `${baseUrl}/${locale}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-  ])
-
-  return [...routes, ...localizedRoutes]
+    ...routes,
+  ];
 }
