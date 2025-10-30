@@ -1,41 +1,44 @@
 'use client';
 
 import { useState, useRef } from "react";
-import ReactPageFlipBook, { FlipBookRef } from "./components/ReactPageFlipBook";
-import Sidebar from "./components/Sidebar";
+import { useTranslations } from 'next-intl';
+import ReactPageFlipBook, { FlipBookRef } from "../components/ReactPageFlipBook";
+import Sidebar from "../components/Sidebar";
 
 export default function Home() {
+  const t = useTranslations('home.defaultPages');
+
   // דוגמת דפים - תוכל להחליף עם תוכן משלך
   const defaultPages = [
     {
-      content: "📚 My Digital Book", // כריכה
+      content: t('cover'), // כריכה
     },
     {
-      content: "Welcome to your digital flipbook! This is an interactive book viewer built with React and Next.js.",
+      content: t('welcome'),
     },
     {
-      content: "You can add any content you want here - text, images, or even custom React components.",
+      content: t('content1'),
     },
     {
-      content: "The flipbook is fully responsive and works great on mobile devices. Try swiping to turn pages!",
+      content: t('content2'),
     },
     {
-      content: "Click the buttons below to navigate, or click on the page numbers to jump to a specific page.",
+      content: t('content3'),
     },
     {
-      content: "You can customize the appearance, animation speed, shadows, and many other properties.",
+      content: t('content4'),
     },
     {
-      content: "Add as many pages as you need. The component will automatically handle pagination.",
+      content: t('content5'),
     },
     {
-      content: "Perfect for digital magazines, portfolios, catalogs, or any document you want to display beautifully.",
+      content: t('content6'),
     },
     {
-      content: "Enjoy creating your interactive flipbook experience!",
+      content: t('content7'),
     },
     {
-      content: "✨ The End", // כריכה אחורית
+      content: t('end'), // כריכה אחורית
     },
   ];
 
@@ -77,7 +80,6 @@ export default function Home() {
         left: 0,
         right: 0,
         bottom: 0,
-        display: 'flex',
         width: '100vw',
         height: '100vh',
         margin: 0,
@@ -85,17 +87,21 @@ export default function Home() {
         overflow: 'hidden',
       }}
     >
-      {/* Main Content Area */}
+      {/* Main Content Area - Full width, centered */}
       <div
         style={{
-          flex: 1,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          minWidth: 0,
-          height: '100%',
-          position: 'relative',
+          // Account for sidebar width to keep book centered
+          marginRight: isSidebarOpen ? '320px' : '56px',
+          transition: 'margin-right 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       >
         <ReactPageFlipBook
@@ -105,19 +111,29 @@ export default function Home() {
         />
       </div>
 
-      {/* Sidebar */}
-      <Sidebar
-        currentPage={currentPage}
-        totalPages={pages.length}
-        onPrevPage={handlePrevPage}
-        onNextPage={handleNextPage}
-        onFirstPage={handleFirstPage}
-        onLastPage={handleLastPage}
-        onJumpToPage={handleJumpToPage}
-        onPDFLoad={handlePDFLoad}
-        isOpen={isSidebarOpen}
-        onToggle={setIsSidebarOpen}
-      />
+      {/* Sidebar - Fixed position */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1000,
+        }}
+      >
+        <Sidebar
+          currentPage={currentPage}
+          totalPages={pages.length}
+          onPrevPage={handlePrevPage}
+          onNextPage={handleNextPage}
+          onFirstPage={handleFirstPage}
+          onLastPage={handleLastPage}
+          onJumpToPage={handleJumpToPage}
+          onPDFLoad={handlePDFLoad}
+          isOpen={isSidebarOpen}
+          onToggle={setIsSidebarOpen}
+        />
+      </div>
     </div>
   );
 }

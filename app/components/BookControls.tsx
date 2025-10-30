@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface BookControlsProps {
   currentPage: number;
@@ -21,6 +22,7 @@ const BookControls: React.FC<BookControlsProps> = ({
   onLastPage,
   onJumpToPage,
 }) => {
+  const t = useTranslations('home.controls');
   const [jumpPage, setJumpPage] = useState('');
 
   const handleJump = () => {
@@ -52,14 +54,14 @@ const BookControls: React.FC<BookControlsProps> = ({
             fontWeight: 600,
             color: '#6366f1',
           }}>
-            Page Progress
+            {t('pageProgress')}
           </span>
           <span style={{
             fontSize: '0.875rem',
             fontWeight: 600,
             color: '#1f2937',
           }}>
-            {currentPage + 1} / {totalPages}
+            {t('currentPage', { current: currentPage + 1, total: totalPages })}
           </span>
         </div>
         <div style={{
@@ -125,7 +127,7 @@ const BookControls: React.FC<BookControlsProps> = ({
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M10 12l-4-4 4-4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Previous
+          {t('previous')}
         </button>
 
         <button
@@ -163,7 +165,7 @@ const BookControls: React.FC<BookControlsProps> = ({
             }
           }}
         >
-          Next
+          {t('next')}
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -204,7 +206,7 @@ const BookControls: React.FC<BookControlsProps> = ({
             }
           }}
         >
-          ⏮ First Page
+          ⏮ {t('first')}
         </button>
 
         <button
@@ -235,7 +237,7 @@ const BookControls: React.FC<BookControlsProps> = ({
             }
           }}
         >
-          Last Page ⏭
+          {t('last')} ⏭
         </button>
       </div>
 
@@ -255,7 +257,7 @@ const BookControls: React.FC<BookControlsProps> = ({
           color: '#4b5563',
           marginBottom: '0.5rem',
         }}>
-          Jump to Page
+          {t('jumpTo')}
         </label>
         <div style={{
           display: 'flex',
@@ -268,7 +270,7 @@ const BookControls: React.FC<BookControlsProps> = ({
             value={jumpPage}
             onChange={(e) => setJumpPage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={`1-${totalPages}`}
+            placeholder={t('placeholder', { total: totalPages })}
             style={{
               flex: 1,
               padding: '0.625rem 0.875rem',
@@ -313,7 +315,7 @@ const BookControls: React.FC<BookControlsProps> = ({
               e.currentTarget.style.boxShadow = '0 1px 3px rgba(16, 185, 129, 0.3)';
             }}
           >
-            Go
+            {t('go')}
           </button>
         </div>
       </div>

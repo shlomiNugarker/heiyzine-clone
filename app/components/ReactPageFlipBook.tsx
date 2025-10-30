@@ -78,17 +78,20 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
       // Get the actual container dimensions
       const containerRect = containerRef.current.getBoundingClientRect();
 
-      // Minimize margins to maximize book size - use only 10px total margin
-      const horizontalMargin = 10;
-      const verticalMargin = 10;
+      // Use minimal margins to maximize book size (only 4px on each side for breathing room)
+      const horizontalMargin = 8; // 4px on each side
+      const verticalMargin = 8; // 4px top and bottom
+
+      // Make sure we don't exceed viewport height
+      const maxContainerHeight = Math.min(containerRect.height, window.innerHeight);
 
       const availableWidth = containerRect.width - horizontalMargin;
-      const availableHeight = containerRect.height - verticalMargin;
+      const availableHeight = maxContainerHeight - verticalMargin;
 
       // Page aspect ratio (A4: 0.707 = width/height)
       const pageAspectRatio = 0.707;
 
-      // Strategy: Maximize book size by prioritizing height first
+      // Strategy: Maximize book size by prioritizing height first (fill the screen vertically)
       let pageHeight = availableHeight;
       let pageWidth = pageHeight * pageAspectRatio;
 
@@ -96,7 +99,7 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
       const doublePageWidth = pageWidth * 2;
 
       if (doublePageWidth > availableWidth) {
-        // If not, recalculate based on available width
+        // If not, recalculate based on available width (fill horizontally)
         pageWidth = availableWidth / 2;
         pageHeight = pageWidth / pageAspectRatio;
       }
@@ -127,10 +130,15 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
 
     // Add ResizeObserver to detect container size changes (e.g., when sidebar toggles)
     let resizeObserver: ResizeObserver | null = null;
+    let resizeDebounceTimeout: NodeJS.Timeout;
+
     if (containerRef.current) {
       resizeObserver = new ResizeObserver(() => {
-        // Add a small delay to allow for smooth transition
-        setTimeout(calculateDimensions, 400);
+        // Debounce the resize calculation to prevent multiple rapid re-renders
+        clearTimeout(resizeDebounceTimeout);
+        resizeDebounceTimeout = setTimeout(() => {
+          calculateDimensions();
+        }, 450); // Wait for sidebar animation to complete (400ms) + buffer
       });
       resizeObserver.observe(containerRef.current);
     }
@@ -138,6 +146,7 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
     return () => {
       clearTimeout(initialTimeout);
       clearTimeout(resizeTimeout);
+      clearTimeout(resizeDebounceTimeout);
       window.removeEventListener('resize', handleResize);
       if (resizeObserver) {
         resizeObserver.disconnect();
@@ -153,9 +162,9 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
   // Size settings with defaults based on width and height
   const size = props.size ?? 'stretch';
   const minWidth = props.minWidth ?? Math.floor(width * 0.5);
-  const maxWidth = props.maxWidth ?? width * 1.5;
+  const maxWidth = props.maxWidth ?? width * 2;
   const minHeight = props.minHeight ?? Math.floor(height * 0.5);
-  const maxHeight = props.maxHeight ?? height * 1.2;
+  const maxHeight = props.maxHeight ?? height * 2; // Allow larger max to fill screen
   const autoSize = props.autoSize ?? true;
 
   // Page settings with defaults
@@ -248,8 +257,14 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
         alignItems: 'center',
         width: '100%',
         height: '100%',
-        position: 'relative',
+        maxHeight: '100vh',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         isolation: 'isolate',
+        overflow: 'hidden',
       }}>
       <HTMLFlipBook
         ref={bookRef}

@@ -15,8 +15,11 @@
       "previous": "Previous",
       "next": "Next",
       "last": "Last Page",
-      "jumpTo": "Jump to page",
-      "currentPage": "Page {current} of {total}"
+      "jumpTo": "Jump to Page",
+      "currentPage": "Page {current} of {total}",
+      "pageProgress": "Page Progress",
+      "go": "Go",
+      "placeholder": "1-{total}"
     },
     "features": {
       "title": "Features",

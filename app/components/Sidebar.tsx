@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PDFUploader from './PDFUploader';
 import BookControls from './BookControls';
+import LanguageSelector from './LanguageSelector';
 
 interface SidebarProps {
   currentPage: number;
@@ -30,12 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleToggle = () => {
     const newState = !isOpen;
@@ -45,11 +41,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       setInternalIsOpen(newState);
     }
   };
-
-  // Don't render toggle button until mounted to avoid hydration mismatch
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <div
@@ -204,6 +195,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           />
         </div>
       </div>
+
+      {/* Language Selector */}
+      <LanguageSelector />
 
       {/* Footer with Tip */}
       <div

@@ -16,7 +16,10 @@
       "next": "הבא",
       "last": "עמוד אחרון",
       "jumpTo": "קפוץ לעמוד",
-      "currentPage": "עמוד {current} מתוך {total}"
+      "currentPage": "עמוד {current} מתוך {total}",
+      "pageProgress": "התקדמות בעמודים",
+      "go": "עבור",
+      "placeholder": "1-{total}"
     },
     "features": {
       "title": "תכונות",
