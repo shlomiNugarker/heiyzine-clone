@@ -22,16 +22,14 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ onPDFLoad }) => {
     try {
       const arrayBuffer = await file.arrayBuffer();
 
-      // Dynamically import pdfjs only on client side
-      const { pdfjs } = await import('react-pdf');
+      // Dynamically import pdfjs-dist directly
+      const pdfjsLib = await import('pdfjs-dist');
 
-      // Set worker from CDN
-      if (!pdfjs.GlobalWorkerOptions.workerSrc) {
-        pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-      }
+      // Set worker from CDN - use jsdelivr as it's more reliable
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
-      // Load PDF using react-pdf
-      const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
+      // Load PDF using pdfjs-dist directly
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
       const pdf = await loadingTask.promise;
 
       const pages: Array<{ content: string; image?: string }> = [];
