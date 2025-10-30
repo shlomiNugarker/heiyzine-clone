@@ -1,10 +1,6 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { pdfjs, Document, Page as PDFPage } from 'react-pdf';
-
-// Set worker from CDN
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface PDFUploaderProps {
   onPDFLoad: (pages: Array<{ content: string; image?: string }>) => void;
@@ -25,6 +21,14 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ onPDFLoad }) => {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
+
+      // Dynamically import pdfjs only on client side
+      const { pdfjs } = await import('react-pdf');
+
+      // Set worker from CDN
+      if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+        pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+      }
 
       // Load PDF using react-pdf
       const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
@@ -48,6 +52,7 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ onPDFLoad }) => {
         await page.render({
           canvasContext: context,
           viewport: viewport,
+          canvas: canvas,
         }).promise;
 
         const imageData = canvas.toDataURL('image/png');

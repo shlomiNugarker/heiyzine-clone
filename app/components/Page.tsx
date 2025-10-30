@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface PageProps {
   number: number;
@@ -15,19 +16,19 @@ const Page = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
         // overflow: 'hidden',
       }}
     >
       {props.image ? (
-        <img
+        <Image
           src={props.image}
           alt={`Page ${props.number}`}
+          fill
           style={{
-            width: '100%',
-            height: '100%',
             objectFit: 'cover',
-            display: 'block',
           }}
+          unoptimized
         />
       ) : (
         <div style={{
