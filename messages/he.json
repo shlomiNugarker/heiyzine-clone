@@ -55,5 +55,8 @@
     "close": "סגור",
     "save": "שמור",
     "delete": "מחק"
+  },
+  "footer": {
+    "createdBy": "נוצר על ידי"
   }
 }

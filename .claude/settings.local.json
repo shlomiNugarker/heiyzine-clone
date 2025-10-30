@@ -7,7 +7,9 @@
       "Bash(npm run build:*)",
       "Bash(tree:*)",
       "Bash(move layout.tsx \"[locale]/layout.tsx\")",
-      "Bash(move page.tsx \"[locale]/page.tsx\")"
+      "Bash(move page.tsx \"[locale]/page.tsx\")",
+      "Bash(npx next lint:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

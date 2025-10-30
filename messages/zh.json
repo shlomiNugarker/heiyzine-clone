@@ -52,5 +52,8 @@
     "close": "关闭",
     "save": "保存",
     "delete": "删除"
+  },
+  "footer": {
+    "createdBy": "创建者"
   }
 }

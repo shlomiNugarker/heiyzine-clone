@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import "../globals.css";
 import { GoogleAnalytics, GoogleTagManager } from "../components/Analytics";
+import Footer from "../components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -157,7 +158,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as 'en' | 'he' | 'es' | 'fr' | 'de' | 'ja' | 'zh')) {
     notFound();
   }
 
@@ -226,6 +227,7 @@ export default async function LocaleLayout({
           <GoogleAnalytics />
           <GoogleTagManager />
           {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

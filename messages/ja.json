@@ -52,5 +52,8 @@
     "close": "閉じる",
     "save": "保存",
     "delete": "削除"
+  },
+  "footer": {
+    "createdBy": "作成者"
   }
 }

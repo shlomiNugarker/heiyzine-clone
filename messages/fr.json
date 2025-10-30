@@ -52,5 +52,8 @@
     "close": "Fermer",
     "save": "Enregistrer",
     "delete": "Supprimer"
+  },
+  "footer": {
+    "createdBy": "Créé par"
   }
 }
