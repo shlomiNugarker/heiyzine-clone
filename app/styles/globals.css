@@ -698,6 +698,103 @@ select {
   outline: none;
 }
 
+/* Fullscreen Button */
+.fullscreen-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow:
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(59, 130, 246, 0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fullscreen-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+}
+
+.fullscreen-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(59, 130, 246, 0.4),
+    0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.fullscreen-btn:hover::before {
+  left: 100%;
+}
+
+.fullscreen-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.fullscreen-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Fullscreen Mode */
+.main-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: var(--bg-gradient);
+}
+
+.main-container.fullscreen .sidebar {
+  display: none;
+}
+
+.main-container.fullscreen .flipbook-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  flex: none;
+}
+
+.main-container.fullscreen .flipbook {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+
 /* Page Flip Library - Using all defaults */
 
 /* RTL Support */

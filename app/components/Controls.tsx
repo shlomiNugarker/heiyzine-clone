@@ -13,6 +13,8 @@ export function Controls({
   onLast,
   onGoToPage,
   disabled = false,
+  isFullscreen = false,
+  onToggleFullscreen,
 }: ControlsProps) {
   const t = useTranslations('BookControls');
   const [pageInput, setPageInput] = useState('');
@@ -100,6 +102,18 @@ export function Controls({
           {t('go')}
         </button>
       </div>
+
+      {/* Fullscreen Toggle */}
+      {onToggleFullscreen && (
+        <button
+          onClick={onToggleFullscreen}
+          disabled={disabled}
+          className="fullscreen-btn"
+          title={isFullscreen ? t('exitFullscreen') : t('fullscreen')}
+        >
+          {isFullscreen ? '🔲' : '🖥️'} {isFullscreen ? t('exitFullscreen') : t('fullscreen')}
+        </button>
+      )}
     </div>
   );
 }

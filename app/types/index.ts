@@ -66,6 +66,8 @@ export interface ControlsProps {
   onLast: () => void;
   onGoToPage: (page: number) => void;
   disabled?: boolean;
+  isFullscreen?: boolean;
+  onToggleFullscreen?: () => void;
 }
 
 export interface SidebarProps {

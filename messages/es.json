@@ -69,7 +69,9 @@
     "next": "Siguiente",
     "last": "Última Página",
     "jumpToPage": "Ir a página...",
-    "go": "Ir"
+    "go": "Ir",
+    "fullscreen": "Pantalla Completa",
+    "exitFullscreen": "Salir de Pantalla Completa"
   },
   "LanguageSelector": {
     "selectLanguage": "Seleccionar Idioma"

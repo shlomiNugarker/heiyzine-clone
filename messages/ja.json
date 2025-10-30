@@ -69,7 +69,9 @@
     "next": "次へ",
     "last": "最後のページ",
     "jumpToPage": "ページへジャンプ...",
-    "go": "移動"
+    "go": "移動",
+    "fullscreen": "全画面表示",
+    "exitFullscreen": "全画面表示を終了"
   },
   "LanguageSelector": {
     "selectLanguage": "言語を選択"

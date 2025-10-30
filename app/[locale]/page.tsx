@@ -1,15 +1,18 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { FlipBook } from '../components/FlipBook';
 import { PDFUpload } from '../components/PDFUpload';
 import { Controls } from '../components/Controls';
 import { Sidebar } from '../components/Sidebar';
 import { LanguageSwitch } from '../components/LanguageSwitch';
 import { DEFAULT_PAGES } from '../lib/config';
+import { useFullscreen } from '../hooks/useFullscreen';
 import type { FlipBookStateCallback, PageData } from '../types';
 
 export default function HomePage() {
+  const mainContainerRef = useRef<HTMLDivElement>(null);
+  const { isFullscreen, toggleFullscreen } = useFullscreen(mainContainerRef);
   const [pages, setPages] = useState<PageData[]>(DEFAULT_PAGES);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [flipBookState, setFlipBookState] = useState<FlipBookStateCallback>({
@@ -31,7 +34,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="main-container">
+    <div ref={mainContainerRef} className={`main-container ${isFullscreen ? 'fullscreen' : ''}`}>
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)}>
         <PDFUpload onUpload={handleUpload} />
 
@@ -44,6 +47,8 @@ export default function HomePage() {
           onLast={flipBookState.lastPage}
           onGoToPage={flipBookState.goToPage}
           disabled={pages.length === 0}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={toggleFullscreen}
         />
 
         <LanguageSwitch />

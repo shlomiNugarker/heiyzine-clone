@@ -72,7 +72,9 @@
     "next": "Next",
     "last": "Last Page",
     "jumpToPage": "Jump to page...",
-    "go": "Go"
+    "go": "Go",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen"
   },
   "LanguageSelector": {
     "selectLanguage": "Select Language"

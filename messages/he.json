@@ -72,7 +72,9 @@
     "next": "הבא",
     "last": "עמוד אחרון",
     "jumpToPage": "קפוץ לעמוד...",
-    "go": "עבור"
+    "go": "עבור",
+    "fullscreen": "מסך מלא",
+    "exitFullscreen": "יציאה ממסך מלא"
   },
   "LanguageSelector": {
     "selectLanguage": "בחר שפה"

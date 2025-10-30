@@ -30,7 +30,8 @@
       "Bash(if exist SWITCH_TO_V2.md del SWITCH_TO_V2.md)",
       "Bash(if exist V2_COMPLETE.md del V2_COMPLETE.md)",
       "Bash(dir \"C:\\Users\\Shlomi\\Desktop\\heiyzine-clone\" /b)",
-      "Bash(if exist \"c:\\Users\\Shlomi\\Desktop\\heiyzine-clone\\lib\\constants.ts\" del \"c:\\Users\\Shlomi\\Desktop\\heiyzine-clone\\lib\\constants.ts\")"
+      "Bash(if exist \"c:\\Users\\Shlomi\\Desktop\\heiyzine-clone\\lib\\constants.ts\" del \"c:\\Users\\Shlomi\\Desktop\\heiyzine-clone\\lib\\constants.ts\")",
+      "Bash(powershell -Command \"(Get-Content ''c:\\Users\\Shlomi\\Desktop\\heiyzine-clone\\app\\styles\\globals.css'' | Measure-Object -Line).Lines\")"
     ],
     "deny": [],
     "ask": []
