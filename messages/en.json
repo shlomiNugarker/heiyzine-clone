@@ -1,0 +1,56 @@
+{
+  "home": {
+    "title": "FlipBook Viewer - Interactive PDF to Digital Flipbook Converter",
+    "description": "Transform your PDFs into beautiful interactive digital flipbooks",
+    "upload": {
+      "title": "Upload PDF",
+      "button": "Choose PDF File",
+      "dragDrop": "or drag and drop your PDF here",
+      "processing": "Processing PDF...",
+      "success": "PDF loaded successfully!",
+      "error": "Error loading PDF. Please try again."
+    },
+    "controls": {
+      "first": "First Page",
+      "previous": "Previous",
+      "next": "Next",
+      "last": "Last Page",
+      "jumpTo": "Jump to page",
+      "currentPage": "Page {current} of {total}"
+    },
+    "features": {
+      "title": "Features",
+      "responsive": "Fully Responsive",
+      "interactive": "Interactive Page Turning",
+      "free": "100% Free to Use",
+      "noSignup": "No Registration Required",
+      "multiLanguage": "Multi-language Support",
+      "fast": "Lightning Fast"
+    },
+    "defaultPages": {
+      "cover": "📚 My Digital Book",
+      "welcome": "Welcome to your digital flipbook! This is an interactive book viewer built with React and Next.js.",
+      "content1": "You can add any content you want here - text, images, or even custom React components.",
+      "content2": "The flipbook is fully responsive and works great on mobile devices. Try swiping to turn pages!",
+      "content3": "Click the buttons below to navigate, or click on the page numbers to jump to a specific page.",
+      "content4": "You can customize the appearance, animation speed, shadows, and many other properties.",
+      "content5": "Add as many pages as you need. The component will automatically handle pagination.",
+      "content6": "Perfect for digital magazines, portfolios, catalogs, or any document you want to display beautifully.",
+      "content7": "Enjoy creating your interactive flipbook experience!",
+      "end": "✨ The End"
+    }
+  },
+  "metadata": {
+    "title": "FlipBook Viewer - Interactive PDF to Digital Flipbook Converter",
+    "description": "Transform your PDFs into beautiful interactive digital flipbooks. Free online PDF to flipbook converter with realistic page-turning effects."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "home": {
+    "title": "FlipBook Viewer - 交互式PDF到数字翻页书转换器",
+    "description": "将您的PDF转换为美丽的交互式数字翻页书",
+    "upload": {
+      "title": "上传PDF",
+      "button": "选择PDF文件",
+      "dragDrop": "或将PDF拖放到此处",
+      "processing": "正在处理PDF...",
+      "success": "PDF加载成功!",
+      "error": "加载PDF时出错。请重试。"
+    },
+    "controls": {
+      "first": "第一页",
+      "previous": "上一页",
+      "next": "下一页",
+      "last": "最后一页",
+      "jumpTo": "跳转到页面",
+      "currentPage": "第{current}页,共{total}页"
+    },
+    "features": {
+      "title": "功能特点",
+      "responsive": "完全响应式",
+      "interactive": "交互式翻页",
+      "free": "100%免费",
+      "noSignup": "无需注册",
+      "multiLanguage": "多语言支持",
+      "fast": "极速快捷"
+    },
+    "defaultPages": {
+      "cover": "📚 我的数字书",
+      "welcome": "欢迎来到您的数字翻页书!这是一个使用React和Next.js构建的交互式书籍查看器。",
+      "content1": "您可以在这里添加任何想要的内容 - 文本、图像,甚至自定义React组件。",
+      "content2": "翻页书完全响应式,在移动设备上运行完美。尝试滑动来翻页!",
+      "content3": "点击下面的按钮进行导航,或点击页码跳转到特定页面。",
+      "content4": "您可以自定义外观、动画速度、阴影和许多其他属性。",
+      "content5": "添加任意数量的页面。组件将自动处理分页。",
+      "content6": "非常适合数字杂志、作品集、目录或任何您想要精美展示的文档。",
+      "content7": "享受创建您的交互式翻页书体验!",
+      "end": "✨ 结束"
+    }
+  },
+  "metadata": {
+    "title": "FlipBook Viewer - 交互式PDF到数字翻页书转换器",
+    "description": "将您的PDF转换为美丽的交互式数字翻页书。具有逼真翻页效果的免费在线PDF到翻页书转换器。"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除"
+  }
+}

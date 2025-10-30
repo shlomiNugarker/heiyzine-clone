@@ -8,6 +8,9 @@ interface PageProps {
 }
 
 const Page = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
+  // Determine if this is likely the first page (cover) for priority loading
+  const isPriority = props.number <= 2;
+
   return (
     <div
       ref={ref}
@@ -17,29 +20,45 @@ const Page = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
-        // overflow: 'hidden',
+        overflow: 'hidden',
+        backgroundColor: '#ffffff',
       }}
+      data-page-number={props.number}
+      role="region"
+      aria-label={`Page ${props.number}`}
     >
       {props.image ? (
         <Image
           src={props.image}
-          alt={`Page ${props.number}`}
+          alt={`Page ${props.number} of the flipbook`}
           fill
           style={{
             objectFit: 'cover',
           }}
-          unoptimized
+          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={85}
+          priority={isPriority}
+          loading={isPriority ? 'eager' : 'lazy'}
+          unoptimized // Keep unoptimized for data URLs from PDF processing
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
         />
       ) : (
-        <div style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px',
-        }}>
-          <p style={{ textAlign: 'center' }}>{props.children}</p>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            fontSize: 'clamp(1rem, 2.5vw, 1.5rem)',
+            lineHeight: '1.6',
+          }}
+        >
+          <p style={{ textAlign: 'center', maxWidth: '80%' }}>
+            {props.children}
+          </p>
         </div>
       )}
     </div>
@@ -48,4 +67,5 @@ const Page = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
 
 Page.displayName = 'Page';
 
-export default Page;
+// Memoize the component to prevent unnecessary re-renders
+export default React.memo(Page);

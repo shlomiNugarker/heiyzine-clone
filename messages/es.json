@@ -1,0 +1,56 @@
+{
+  "home": {
+    "title": "FlipBook Viewer - Conversor Interactivo de PDF a Flipbook Digital",
+    "description": "Transforma tus PDFs en hermosos flipbooks digitales interactivos",
+    "upload": {
+      "title": "Subir PDF",
+      "button": "Elegir archivo PDF",
+      "dragDrop": "o arrastra y suelta tu PDF aquí",
+      "processing": "Procesando PDF...",
+      "success": "¡PDF cargado exitosamente!",
+      "error": "Error al cargar el PDF. Por favor, inténtalo de nuevo."
+    },
+    "controls": {
+      "first": "Primera Página",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "last": "Última Página",
+      "jumpTo": "Ir a la página",
+      "currentPage": "Página {current} de {total}"
+    },
+    "features": {
+      "title": "Características",
+      "responsive": "Totalmente Responsive",
+      "interactive": "Cambio de Página Interactivo",
+      "free": "100% Gratis",
+      "noSignup": "Sin Registro Requerido",
+      "multiLanguage": "Soporte Multi-idioma",
+      "fast": "Súper Rápido"
+    },
+    "defaultPages": {
+      "cover": "📚 Mi Libro Digital",
+      "welcome": "¡Bienvenido a tu flipbook digital! Este es un visor de libros interactivo construido con React y Next.js.",
+      "content1": "Puedes agregar cualquier contenido que desees aquí - texto, imágenes, o incluso componentes React personalizados.",
+      "content2": "El flipbook es totalmente responsive y funciona muy bien en dispositivos móviles. ¡Intenta deslizar para cambiar páginas!",
+      "content3": "Haz clic en los botones de abajo para navegar, o haz clic en los números de página para saltar a una página específica.",
+      "content4": "Puedes personalizar la apariencia, velocidad de animación, sombras, y muchas otras propiedades.",
+      "content5": "Agrega tantas páginas como necesites. El componente manejará automáticamente la paginación.",
+      "content6": "Perfecto para revistas digitales, portafolios, catálogos, o cualquier documento que quieras mostrar de forma hermosa.",
+      "content7": "¡Disfruta creando tu experiencia de flipbook interactivo!",
+      "end": "✨ Fin"
+    }
+  },
+  "metadata": {
+    "title": "FlipBook Viewer - Conversor Interactivo de PDF a Flipbook Digital",
+    "description": "Transforma tus PDFs en hermosos flipbooks digitales interactivos. Conversor gratuito de PDF a flipbook con efectos realistas de cambio de página."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "delete": "Eliminar"
+  }
+}

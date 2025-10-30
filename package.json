@@ -1,19 +1,35 @@
 {
-  "name": "heiyzine-clone",
-  "version": "0.1.0",
+  "name": "flipbook-viewer",
+  "version": "2.0.0",
   "private": true,
+  "description": "Transform your PDFs into beautiful interactive digital flipbooks",
+  "author": "FlipBook Viewer Team",
+  "license": "MIT",
+  "keywords": [
+    "flipbook",
+    "pdf",
+    "viewer",
+    "digital-magazine",
+    "pdf-converter"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "analyze": "ANALYZE=true next build",
+    "test": "echo \"No tests yet\" && exit 0"
   },
   "dependencies": {
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-pageflip": "^2.0.3",
-    "react-pdf": "^10.2.0"
+    "pdfjs-dist": "^4.10.38"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -24,5 +40,9 @@
     "eslint-config-next": "16.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
   }
 }

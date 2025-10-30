@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PDFUploader from './PDFUploader';
 import BookControls from './BookControls';
 
@@ -13,6 +13,8 @@ interface SidebarProps {
   onLastPage: () => void;
   onJumpToPage: (page: number) => void;
   onPDFLoad: (pages: Array<{ content: string; image?: string }>) => void;
+  isOpen?: boolean;
+  onToggle?: (isOpen: boolean) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -24,62 +26,101 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLastPage,
   onJumpToPage,
   onPDFLoad,
+  isOpen: controlledIsOpen,
+  onToggle,
 }) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const handleToggle = () => {
+    const newState = !isOpen;
+    if (onToggle) {
+      onToggle(newState);
+    } else {
+      setInternalIsOpen(newState);
+    }
+  };
+
+  // Don't render toggle button until mounted to avoid hydration mismatch
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div
       style={{
-        width: '320px',
-        height: '100vh',
-        position: 'fixed',
-        right: 0,
-        top: 0,
+        width: isOpen ? '320px' : '56px',
+        minHeight: '100vh',
+        position: 'relative',
         backgroundColor: '#ffffff',
         borderLeft: '1px solid #e5e7eb',
         boxShadow: '-4px 0 24px rgba(0, 0, 0, 0.08)',
         display: 'flex',
         flexDirection: 'column',
-        overflowY: 'auto',
-        zIndex: 1000,
+        overflowY: isOpen ? 'auto' : 'hidden',
+        overflowX: 'hidden',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        flexShrink: 0,
       }}
     >
-      {/* Header with gradient */}
-      <div
+      {/* Toggle Button - Always at top */}
+      <button
+        onClick={handleToggle}
         style={{
+          width: '100%',
+          height: '56px',
+          backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '2rem 1.5rem',
-          color: '#ffffff',
-        }}
-      >
-        <div style={{
+          border: 'none',
+          borderBottom: isOpen ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
+          cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: '0.75rem',
-          marginBottom: '0.5rem',
-        }}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
-          <h2
-            style={{
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              margin: 0,
-            }}
-          >
-            FlipBook
-          </h2>
-        </div>
-        <p
+          justifyContent: 'center',
+          color: '#ffffff',
+          transition: 'all 0.3s ease',
+          outline: 'none',
+          flexShrink: 0,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(135deg, #5a67d8 0%, #6b3fa0 100%)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }}
+        aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           style={{
-            fontSize: '0.875rem',
-            margin: 0,
-            opacity: 0.9,
+            transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
+            transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
-          Interactive document viewer
-        </p>
-      </div>
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      {/* Sidebar Content - Only show when open */}
+      {isOpen && (
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          overflowY: 'auto',
+        }}>
 
       {/* Main Content Area */}
       <div style={{
@@ -198,6 +239,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
       </div>
+        </div>
+      )}
     </div>
   );
 };

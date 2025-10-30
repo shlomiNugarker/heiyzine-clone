@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
+import { useRef, useState, useCallback, forwardRef, useImperativeHandle, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import Page from './Page';
 
@@ -66,18 +66,83 @@ export interface FlipBookRef {
 }
 
 const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props, ref) => {
+  // Calculate dynamic height based on viewport
+  const [bookDimensions, setBookDimensions] = useState({ width: 400, height: 600 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const calculateDimensions = () => {
+      // Only calculate on client side
+      if (typeof window === 'undefined' || !containerRef.current) return;
+
+      // Get the actual container dimensions
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const availableWidth = containerRect.width - 20; // 10px margin on each side
+      const availableHeight = containerRect.height - 20; // 10px margin top and bottom
+
+      // Page aspect ratio (A4: 0.707 = width/height)
+      const pageAspectRatio = 0.707;
+
+      // Calculate dimensions based on height (priority: maximize height)
+      let pageHeight = availableHeight;
+      let pageWidth = pageHeight * pageAspectRatio;
+
+      // Check if two pages side-by-side fit in the available width
+      const doublePageWidth = pageWidth * 2;
+
+      if (doublePageWidth > availableWidth) {
+        // If not, recalculate based on available width
+        pageWidth = availableWidth / 2;
+        pageHeight = pageWidth / pageAspectRatio;
+      }
+
+      // Round down to ensure it fits
+      const calculatedWidth = Math.floor(pageWidth);
+      const calculatedHeight = Math.floor(pageHeight);
+
+      setBookDimensions({
+        width: calculatedWidth,
+        height: calculatedHeight
+      });
+    };
+
+    // Initial calculation with a small delay to ensure container is rendered
+    const initialTimeout = setTimeout(calculateDimensions, 100);
+
+    // Add window resize listener
+    window.addEventListener('resize', calculateDimensions);
+
+    // Add ResizeObserver to detect container size changes (e.g., when sidebar toggles)
+    let resizeObserver: ResizeObserver | null = null;
+    if (containerRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        // Add a small delay to allow for smooth transition
+        setTimeout(calculateDimensions, 450);
+      });
+      resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+      clearTimeout(initialTimeout);
+      window.removeEventListener('resize', calculateDimensions);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, []);
+
   // Basic settings with defaults
-  const width = props.width ?? 400;
-  const height = props.height ?? 600;
+  const width = props.width ?? bookDimensions.width;
+  const height = props.height ?? bookDimensions.height;
   const pages = props.pages ?? [];
 
   // Size settings with defaults based on width and height
-  const size = props.size ?? 'fixed';
+  const size = props.size ?? 'stretch';
   const minWidth = props.minWidth ?? Math.floor(width * 0.5);
-  const maxWidth = props.maxWidth ?? width * 2;
+  const maxWidth = props.maxWidth ?? width * 1.5;
   const minHeight = props.minHeight ?? Math.floor(height * 0.5);
-  const maxHeight = props.maxHeight ?? height;
-  const autoSize = props.autoSize ?? false;
+  const maxHeight = props.maxHeight ?? height * 1.2;
+  const autoSize = props.autoSize ?? true;
 
   // Page settings with defaults
   const startPage = props.startPage ?? 0;
@@ -147,6 +212,8 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
   const handleInit = useCallback((e: { data: { page: number; mode: PageOrientation } }) => {
     setTotalPages(pages.length);
     if (onInitProp) {
+
+      
       onInitProp(e.data);
     }
   }, [pages.length, onInitProp]);
@@ -159,14 +226,17 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
   }, [pages.length, onUpdate]);
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      position: 'relative',
-      isolation: 'isolate',
-    }}>
+    <div
+      ref={containerRef}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        isolation: 'isolate',
+      }}>
       <HTMLFlipBook
         ref={bookRef}
         width={width}

@@ -41,6 +41,7 @@ export default function Home() {
 
   const [pages, setPages] = useState<Array<{ content?: string; image?: string }>>(defaultPages);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const bookRef = useRef<FlipBookRef>(null);
 
   const handlePDFLoad = (pdfPages: Array<{ content: string; image?: string }>) => {
@@ -69,17 +70,32 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        width: '100vw',
+        height: '100vh',
+        margin: 0,
+        padding: 0,
+        overflow: 'hidden',
+      }}
+    >
       {/* Main Content Area */}
       <div
         style={{
           flex: 1,
-          marginRight: '320px', // Space for sidebar
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem',
           overflow: 'hidden',
+          minWidth: 0,
+          height: '100%',
+          position: 'relative',
         }}
       >
         <ReactPageFlipBook
@@ -99,6 +115,8 @@ export default function Home() {
         onLastPage={handleLastPage}
         onJumpToPage={handleJumpToPage}
         onPDFLoad={handlePDFLoad}
+        isOpen={isSidebarOpen}
+        onToggle={setIsSidebarOpen}
       />
     </div>
   );

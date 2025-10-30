@@ -1,0 +1,56 @@
+{
+  "home": {
+    "title": "FlipBook Viewer - Interaktiver PDF zu Digitalem Flipbook Konverter",
+    "description": "Verwandeln Sie Ihre PDFs in wunderschöne interaktive digitale Flipbooks",
+    "upload": {
+      "title": "PDF Hochladen",
+      "button": "PDF-Datei Wählen",
+      "dragDrop": "oder ziehen Sie Ihr PDF hierher",
+      "processing": "PDF wird verarbeitet...",
+      "success": "PDF erfolgreich geladen!",
+      "error": "Fehler beim Laden der PDF. Bitte versuchen Sie es erneut."
+    },
+    "controls": {
+      "first": "Erste Seite",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "last": "Letzte Seite",
+      "jumpTo": "Gehe zu Seite",
+      "currentPage": "Seite {current} von {total}"
+    },
+    "features": {
+      "title": "Funktionen",
+      "responsive": "Vollständig Responsive",
+      "interactive": "Interaktives Seitenumblättern",
+      "free": "100% Kostenlos",
+      "noSignup": "Keine Registrierung Erforderlich",
+      "multiLanguage": "Mehrsprachige Unterstützung",
+      "fast": "Blitzschnell"
+    },
+    "defaultPages": {
+      "cover": "📚 Mein Digitales Buch",
+      "welcome": "Willkommen bei Ihrem digitalen Flipbook! Dies ist ein interaktiver Buchbetrachter, der mit React und Next.js erstellt wurde.",
+      "content1": "Sie können hier jeden beliebigen Inhalt hinzufügen - Text, Bilder oder sogar benutzerdefinierte React-Komponenten.",
+      "content2": "Das Flipbook ist vollständig responsive und funktioniert hervorragend auf mobilen Geräten. Versuchen Sie zu wischen, um Seiten umzublättern!",
+      "content3": "Klicken Sie auf die Schaltflächen unten zum Navigieren oder auf die Seitenzahlen, um zu einer bestimmten Seite zu springen.",
+      "content4": "Sie können das Aussehen, die Animationsgeschwindigkeit, Schatten und viele andere Eigenschaften anpassen.",
+      "content5": "Fügen Sie so viele Seiten hinzu, wie Sie benötigen. Die Komponente übernimmt automatisch die Paginierung.",
+      "content6": "Perfekt für digitale Magazine, Portfolios, Kataloge oder jedes Dokument, das Sie schön präsentieren möchten.",
+      "content7": "Viel Spaß beim Erstellen Ihres interaktiven Flipbook-Erlebnisses!",
+      "end": "✨ Ende"
+    }
+  },
+  "metadata": {
+    "title": "FlipBook Viewer - Interaktiver PDF zu Digitalem Flipbook Konverter",
+    "description": "Verwandeln Sie Ihre PDFs in wunderschöne interaktive digitale Flipbooks. Kostenloser PDF zu Flipbook Konverter mit realistischen Seitenumblätter-Effekten."
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "save": "Speichern",
+    "delete": "Löschen"
+  }
+}
