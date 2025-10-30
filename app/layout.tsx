@@ -189,6 +189,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ margin: 0, padding: 0, height: '100vh', overflow: 'hidden' }}
       >
         <GoogleAnalytics />
         <GoogleTagManager />

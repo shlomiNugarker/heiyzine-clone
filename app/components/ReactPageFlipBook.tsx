@@ -77,13 +77,18 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
 
       // Get the actual container dimensions
       const containerRect = containerRef.current.getBoundingClientRect();
-      const availableWidth = containerRect.width - 20; // 10px margin on each side
-      const availableHeight = containerRect.height - 20; // 10px margin top and bottom
+
+      // Minimize margins to maximize book size - use only 10px total margin
+      const horizontalMargin = 10;
+      const verticalMargin = 10;
+
+      const availableWidth = containerRect.width - horizontalMargin;
+      const availableHeight = containerRect.height - verticalMargin;
 
       // Page aspect ratio (A4: 0.707 = width/height)
       const pageAspectRatio = 0.707;
 
-      // Calculate dimensions based on height (priority: maximize height)
+      // Strategy: Maximize book size by prioritizing height first
       let pageHeight = availableHeight;
       let pageWidth = pageHeight * pageAspectRatio;
 
@@ -96,35 +101,44 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
         pageHeight = pageWidth / pageAspectRatio;
       }
 
-      // Round down to ensure it fits
-      const calculatedWidth = Math.floor(pageWidth);
-      const calculatedHeight = Math.floor(pageHeight);
+      // Ensure minimum readable size
+      const minPageWidth = 200;
+      const minPageHeight = 283; // Maintains A4 ratio with min width
+
+      const finalWidth = Math.max(Math.floor(pageWidth), minPageWidth);
+      const finalHeight = Math.max(Math.floor(pageHeight), minPageHeight);
 
       setBookDimensions({
-        width: calculatedWidth,
-        height: calculatedHeight
+        width: finalWidth,
+        height: finalHeight
       });
     };
 
     // Initial calculation with a small delay to ensure container is rendered
-    const initialTimeout = setTimeout(calculateDimensions, 100);
+    const initialTimeout = setTimeout(calculateDimensions, 50);
 
-    // Add window resize listener
-    window.addEventListener('resize', calculateDimensions);
+    // Add window resize listener with debounce
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(calculateDimensions, 100);
+    };
+    window.addEventListener('resize', handleResize);
 
     // Add ResizeObserver to detect container size changes (e.g., when sidebar toggles)
     let resizeObserver: ResizeObserver | null = null;
     if (containerRef.current) {
       resizeObserver = new ResizeObserver(() => {
         // Add a small delay to allow for smooth transition
-        setTimeout(calculateDimensions, 450);
+        setTimeout(calculateDimensions, 400);
       });
       resizeObserver.observe(containerRef.current);
     }
 
     return () => {
       clearTimeout(initialTimeout);
-      window.removeEventListener('resize', calculateDimensions);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', handleResize);
       if (resizeObserver) {
         resizeObserver.disconnect();
       }

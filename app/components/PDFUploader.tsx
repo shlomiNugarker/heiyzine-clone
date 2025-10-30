@@ -50,7 +50,6 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ onPDFLoad }) => {
         await page.render({
           canvasContext: context,
           viewport: viewport,
-          canvas: canvas,
         }).promise;
 
         const imageData = canvas.toDataURL('image/png');

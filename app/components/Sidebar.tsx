@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div
       style={{
         width: isOpen ? '320px' : '56px',
-        minHeight: '100vh',
+        height: '100vh',
         position: 'relative',
         backgroundColor: '#ffffff',
         borderLeft: '1px solid #e5e7eb',
@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         flexDirection: 'column',
         overflowY: isOpen ? 'auto' : 'hidden',
         overflowX: 'hidden',
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         flexShrink: 0,
       }}
     >
