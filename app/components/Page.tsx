@@ -33,9 +33,8 @@ const Page = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
           alt={`Page ${props.number} of the flipbook`}
           fill
           style={{
-            objectFit: 'cover',
+            objectFit: 'contain',
           }}
-          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           quality={85}
           priority={isPriority}
           loading={isPriority ? 'eager' : 'lazy'}

@@ -91,8 +91,11 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
       // Page aspect ratio (A4: 0.707 = width/height)
       const pageAspectRatio = 0.707;
 
+      // Limit book to 85% of screen height for better visual balance
+      const maxBookHeight = window.innerHeight * 0.85;
+
       // Strategy: Maximize book size by prioritizing height first (fill the screen vertically)
-      let pageHeight = availableHeight;
+      let pageHeight = Math.min(availableHeight, maxBookHeight);
       let pageWidth = pageHeight * pageAspectRatio;
 
       // Check if two pages side-by-side fit in the available width
@@ -101,6 +104,13 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
       if (doublePageWidth > availableWidth) {
         // If not, recalculate based on available width (fill horizontally)
         pageWidth = availableWidth / 2;
+        pageHeight = pageWidth / pageAspectRatio;
+      }
+
+      // Limit maximum width to 900px (450px per page)
+      const maxSinglePageWidth = 450; // Half of 900px for double-page spread
+      if (pageWidth > maxSinglePageWidth) {
+        pageWidth = maxSinglePageWidth;
         pageHeight = pageWidth / pageAspectRatio;
       }
 
@@ -255,9 +265,8 @@ const ReactPageFlipBook = forwardRef<FlipBookRef, ReactPageFlipBookProps>((props
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        maxHeight: '100vh',
+        // width: '100%',
+        // height: '100%',
         position: 'absolute',
         top: 0,
         left: 0,
